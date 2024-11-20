@@ -1,118 +1,54 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { Provider } from 'react-redux';
+import { StatusBar, View } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { navigationRef } from './src/services/navigations.ts';
+import Tabs from './src/navigations/tabs';
+import { store } from './src/store/store.ts';
+import SCREENS from './src/constants/screens.ts';
+import PhoneSignInScreen from './src/screens/PhoneSignInScreen';
+import OTPVerificationScreen from './src/screens/OTPVerificationScreen';
+import UserInfoScreen from './src/screens/UserInfoScreen';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+type ParamList = {
+   PhoneSignInScreen: undefined;
+   OTPVerificationScreen: undefined;
+};
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const AuthStack = createStackNavigator<ParamList>();
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const App: React.FC = () => {
+   const backgroundStyle = {
+      backgroundColor: Colors.lighter,
+      flex: 1,
+   };
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+   return (
+      <Provider store={store}>
+         <View style={backgroundStyle}>
+            <StatusBar
+               barStyle={'dark-content'}
+               backgroundColor={backgroundStyle.backgroundColor}
+            />
+            <SafeAreaProvider>
+               <NavigationContainer ref={navigationRef}>
+                  <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+                     <AuthStack.Screen name={SCREENS.PHONE_SIGN_IN} component={PhoneSignInScreen} />
+                     <AuthStack.Screen
+                        name={SCREENS.OTP_VERIFICATION}
+                        component={OTPVerificationScreen}
+                     />
+                     <AuthStack.Screen name={SCREENS.USER_INFO} component={UserInfoScreen} />
+                  </AuthStack.Navigator>
+                  {/*<Tabs />*/}
+               </NavigationContainer>
+            </SafeAreaProvider>
+         </View>
+      </Provider>
+   );
+};
 
 export default App;
