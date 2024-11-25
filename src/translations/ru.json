@@ -1,24 +1,8 @@
 {
-  "language": "English",
-  "screens": {
-    "intro": {
-      "title": "Intro Screen",
-      "text": {
-        "introText": "This is the intro text in english",
-        "login": "Login",
-        "signup": "Sign Up"
-      }
-    },
-    "login": {
-      "title": "Sign in",
-      "text": {
-        "login": "login",
-        "emailAddress": "Email address",
-        "password": "password",
-        "continue": "Continue",
-        "createAccount": "Create an Account",
-        "forgotPassword": "Forgotten password?"
-      }
-    },
-  }
+  "fastAndComfortable": "Fast and Comfortable",
+  "theBestPlaceToTravel": "The best place to travel",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "enterPassword": "Enter password",
+  "repeatPassword": "Repeat password"
 }

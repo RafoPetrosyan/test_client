@@ -12,6 +12,8 @@ import SCREENS from './src/constants/screens.ts';
 import PhoneSignInScreen from './src/screens/PhoneSignInScreen';
 import OTPVerificationScreen from './src/screens/OTPVerificationScreen';
 import UserInfoScreen from './src/screens/UserInfoScreen';
+import WelcomeScreen from './src/screens/WelcomeScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
 
 type ParamList = {
    PhoneSignInScreen: undefined;
@@ -22,20 +24,19 @@ const AuthStack = createStackNavigator<ParamList>();
 
 const App: React.FC = () => {
    const backgroundStyle = {
-      backgroundColor: Colors.lighter,
+      backgroundColor: Colors.transparent,
       flex: 1,
    };
 
    return (
       <Provider store={store}>
          <View style={backgroundStyle}>
-            <StatusBar
-               barStyle={'dark-content'}
-               backgroundColor={backgroundStyle.backgroundColor}
-            />
+            <StatusBar barStyle={'dark-content'} backgroundColor="transparent" translucent={true} />
             <SafeAreaProvider>
                <NavigationContainer ref={navigationRef}>
                   <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+                     <AuthStack.Screen name={SCREENS.SIGN_UP_SCREEN} component={SignUpScreen} />
+                     <AuthStack.Screen name={SCREENS.WELCOME_SCREEN} component={WelcomeScreen} />
                      <AuthStack.Screen name={SCREENS.PHONE_SIGN_IN} component={PhoneSignInScreen} />
                      <AuthStack.Screen
                         name={SCREENS.OTP_VERIFICATION}

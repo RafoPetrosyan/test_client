@@ -1,5 +1,7 @@
 const SCREENS = {
    PHONE_SIGN_IN: 'PhoneSignInScreen',
+   WELCOME_SCREEN: 'WelcomeScreenScreen',
+   SIGN_UP_SCREEN: 'SignUpScreen',
    OTP_VERIFICATION: 'OTPVerificationScreen',
    USER_INFO: 'UserInfoScreen',
    DIRECTIONS: 'DirectionsScreen',

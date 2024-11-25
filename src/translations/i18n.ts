@@ -12,7 +12,7 @@ const languageDetectorPlugin = {
    detect: async function (callback: (lang: string) => void) {
       try {
          await AsyncStorage.getItem(STORE_LANGUAGE_KEY).then((language) => {
-            return language ? callback(language) : callback('en');
+            return language ? callback(language) : callback('hy');
          });
       } catch (error) {
          console.log('Error reading language', error);
