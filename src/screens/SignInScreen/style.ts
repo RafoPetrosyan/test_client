@@ -91,8 +91,15 @@ const styles = StyleSheet.create({
       fontFamily: fontFamilies.MONTSERRAT[400],
       fontSize: 14,
    },
-   checkboxContent: {
+   forgotPasswordContent: {
       marginTop: normalize(11, true),
+      alignItems: 'flex-end',
+   },
+   forgotPasswordText: {
+      fontSize: 12,
+      color: COLORS.secondaryText,
+      fontWeight: '300',
+      fontFamily: fontFamilies.MONTSERRAT['300'],
    },
 });
 

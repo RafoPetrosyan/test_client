@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
    View,
    Text,
@@ -15,17 +15,14 @@ import { ScreenProps } from '../../types';
 import styles from './style.ts';
 import COLORS from '../../constants/colors.ts';
 import { IS_IOS_PLATFORM } from '../../constants';
-import CustomCheckbox from '../../components/CustomCheckbox';
 
 type FormData = {
    phoneNumber: string;
    password: string;
-   repeatPassword: string;
 };
 
-const SignUpScreen: React.FC<ScreenProps> = ({ navigation }) => {
+const SignInScreen: React.FC<ScreenProps> = ({ navigation }) => {
    const { t } = useTranslation();
-   const [checked, setChecked] = useState<boolean>(false);
    const {
       control,
       handleSubmit,
@@ -35,10 +32,6 @@ const SignUpScreen: React.FC<ScreenProps> = ({ navigation }) => {
    const onSubmit = (data: FormData) => {
       console.log(data);
       navigation.navigate('Home');
-   };
-
-   const handleCheck = () => {
-      setChecked((prevChecked) => !prevChecked);
    };
 
    return (
@@ -95,32 +88,9 @@ const SignUpScreen: React.FC<ScreenProps> = ({ navigation }) => {
                            <Text style={styles.errorText}>{errors.password.message}</Text>
                         )}
 
-                        <Controller
-                           control={control}
-                           name="repeatPassword"
-                           rules={{ required: 'Repeat password is required' }}
-                           render={({ field: { onChange, value } }) => (
-                              <TextInput
-                                 style={[styles.input, errors.repeatPassword && styles.inputError]}
-                                 placeholder={t('repeatPassword')}
-                                 placeholderTextColor={COLORS.inputPlaceholder}
-                                 onChangeText={onChange}
-                                 value={value}
-                                 secureTextEntry={true}
-                              />
-                           )}
-                        />
-                        {errors.repeatPassword && (
-                           <Text style={styles.errorText}>{errors.repeatPassword.message}</Text>
-                        )}
-
-                        <View style={styles.checkboxContent}>
-                           <CustomCheckbox
-                              isChecked={checked}
-                              label={t('agreeTerms')}
-                              onToggle={handleCheck}
-                           />
-                        </View>
+                        <TouchableOpacity style={styles.forgotPasswordContent}>
+                           <Text style={styles.forgotPasswordText}>{t('forgotPassword')}</Text>
+                        </TouchableOpacity>
                      </View>
                   </View>
                   <View style={styles.bottomContent}>
@@ -131,11 +101,11 @@ const SignUpScreen: React.FC<ScreenProps> = ({ navigation }) => {
                            end={{ x: 1, y: 0 }}
                            style={styles.gradient}
                         >
-                           <Text style={styles.firstButtonText}>{t('signUp')}</Text>
+                           <Text style={styles.firstButtonText}>{t('login')}</Text>
                         </LinearGradient>
                      </TouchableOpacity>
                      <View style={styles.secondButton}>
-                        <Text style={styles.secondButtonText}>{t('alreadyHaveAnAccount')}:</Text>
+                        <Text style={styles.secondButtonText}>{t("don'tHaveAnAccountYet")}:</Text>
                         <TouchableOpacity>
                            <Text
                               style={[
@@ -143,7 +113,7 @@ const SignUpScreen: React.FC<ScreenProps> = ({ navigation }) => {
                                  { marginLeft: 5, color: COLORS.brown },
                               ]}
                            >
-                              {t('login')}
+                              {t('signUp')}
                            </Text>
                         </TouchableOpacity>
                      </View>
@@ -155,4 +125,4 @@ const SignUpScreen: React.FC<ScreenProps> = ({ navigation }) => {
    );
 };
 
-export default SignUpScreen;
+export default SignInScreen;

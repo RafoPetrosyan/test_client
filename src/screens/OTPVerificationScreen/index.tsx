@@ -1,99 +1,62 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import OTPTextInput from 'react-native-otp-textinput';
+import LinearGradient from 'react-native-linear-gradient';
+import { useTranslation } from 'react-i18next';
 import { ScreenProps } from '../../types';
+import styles from './style.ts';
 import COLORS from '../../constants/colors.ts';
-import SCREENS from '../../constants/screens.ts';
+import { IS_IOS_PLATFORM } from '../../constants';
 
-const OTPVerificationScreen: React.FC<ScreenProps> = ({ route, navigation }) => {
-   const [code, setCode] = useState('');
-   const { confirmation } = route.params || {};
+const OTPVerificationScreen: React.FC<ScreenProps> = ({ navigation }) => {
+   const { t } = useTranslation();
 
-   const handleVerifyOTP = async () => {
-      if (code.length !== 4) {
-         Alert.alert('Սխալ կոդ', 'Խնդրում ենք մուտքգրել քառնիշ հաստատման կոդը');
-         return;
-      }
-      navigation.navigate(SCREENS.USER_INFO);
-      // try {
-      //    await confirmation.confirm(code);
-      //    navigation.navigate('UserInfo');
-      // } catch (error) {
-      //    console.error('Invalid code.', error);
-      //    Alert.alert('Հեռախոսահամարը չի հաստատվել', 'Կոդը որը մուտքագրում եք սխալ է');
-      // }
-   };
+   const onSubmit = () => {};
 
    return (
-      <View style={styles.container}>
-         <Text style={styles.title}>Հաստատեք ձեր հեռախոսահամարը</Text>
-         <Text style={styles.subtitle}>
-            Մուտքագրեք քառանիշ թիվը որը ուղարկվել է ձեր հեռախոսահամարին
-         </Text>
-
-         <TextInput
-            style={styles.input}
-            keyboardType="number-pad"
-            placeholder="1234"
-            placeholderTextColor="#c9e7ca"
-            value={code}
-            onChangeText={setCode}
-            maxLength={4}
-         />
-
-         <TouchableOpacity style={styles.button} onPress={handleVerifyOTP}>
-            <Text style={styles.buttonText}>Հաստատել</Text>
-         </TouchableOpacity>
-      </View>
+      <KeyboardAvoidingView
+         style={{ flex: 1 }}
+         behavior={IS_IOS_PLATFORM ? 'padding' : undefined}
+         keyboardVerticalOffset={IS_IOS_PLATFORM ? 60 : 0}
+      >
+         <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
+            <View style={styles.container}>
+               <View style={styles.contents}>
+                  <View style={styles.topContent}>
+                     <Text style={styles.title}>{t('enterCode')}</Text>
+                     <Text style={styles.subtitle}>{t('enterFourDigitNumber')}</Text>
+                     <View style={styles.form}>
+                        <OTPTextInput
+                           tintColor={COLORS.secondaryText}
+                           textInputStyle={styles.textInputStyle}
+                           // handleTextChange={onChangeCode}
+                        />
+                        <View style={styles.resendContent}>
+                           <Text style={styles.time}>01:52</Text>
+                           <TouchableOpacity>
+                              <Text style={styles.resend}>{t('resend')}</Text>
+                           </TouchableOpacity>
+                        </View>
+                     </View>
+                  </View>
+                  <View style={styles.bottomContent}>
+                     <TouchableOpacity style={styles.firstButton} onPress={onSubmit}>
+                        <LinearGradient
+                           colors={['#D6990E', '#E2AB2D', '#FFD77D']}
+                           start={{ x: 0, y: 0 }}
+                           end={{ x: 1, y: 0 }}
+                           style={styles.gradient}
+                        >
+                           <Text style={styles.firstButtonText}>{t('confirm')}</Text>
+                        </LinearGradient>
+                     </TouchableOpacity>
+                     <View style={styles.secondButton}></View>
+                  </View>
+               </View>
+            </View>
+         </ScrollView>
+      </KeyboardAvoidingView>
    );
 };
-
-const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      backgroundColor: COLORS.baseBackgroundColor,
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingHorizontal: 20,
-   },
-   title: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      color: COLORS.primary,
-      marginBottom: 10,
-      textAlign: 'center',
-   },
-   subtitle: {
-      fontSize: 16,
-      color: COLORS.secondary,
-      marginBottom: 30,
-      textAlign: 'center',
-   },
-   input: {
-      width: '100%',
-      backgroundColor: COLORS.white,
-      borderRadius: 10,
-      padding: 15,
-      fontSize: 20,
-      textAlign: 'center',
-      borderWidth: 1,
-      borderColor: COLORS.borderColor,
-      color: COLORS.black,
-      marginBottom: 20,
-      letterSpacing: 4,
-   },
-   button: {
-      backgroundColor: COLORS.primaryButton,
-      borderRadius: 10,
-      paddingVertical: 15,
-      paddingHorizontal: 30,
-      alignItems: 'center',
-      width: '100%',
-   },
-   buttonText: {
-      color: COLORS.white,
-      fontSize: 18,
-      fontWeight: 'bold',
-   },
-});
 
 export default OTPVerificationScreen;

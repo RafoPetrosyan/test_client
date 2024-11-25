@@ -4,5 +4,14 @@
   "signIn": "Sign In",
   "signUp": "Sign Up",
   "enterPassword": "Enter password",
-  "repeatPassword": "Repeat password"
+  "repeatPassword": "Repeat password",
+  "agreeTerms": "I agree to the terms and conditions.",
+  "login": "login",
+  "alreadyHaveAnAccount": "Already have an account?",
+  "forgotPassword": "Forgot your password?",
+  "don'tHaveAnAccountYet": "Don't have an account yet?",
+  "enterCode": "Enter Code",
+  "enterFourDigitNumber": "Enter four-digit number",
+  "resend": "Resend",
+  "confirm": "Confirm"
 }

@@ -4,5 +4,14 @@
   "signIn": "Մուտք գործել",
   "signUp": "Գրանցվել",
   "enterPassword": "Մուտքագրել գաղտնաբառը",
-  "repeatPassword": "Կրկնել գաղտնաբառը"
+  "repeatPassword": "Կրկնել գաղտնաբառը",
+  "agreeTerms": "Համաձայն եմ պայմաններին և դրույթներին",
+  "login": "Մուտք",
+  "alreadyHaveAnAccount": "Արդեն ունե՞ք հաշիվ",
+  "forgotPassword": "Մոռացե՞լ եք գաղտնաբառը",
+  "don'tHaveAnAccountYet": "Դեռ չունե՞ք հաշիվ",
+  "enterCode": "Մուտքագրել կոդը",
+  "enterFourDigitNumber": "Մուտքագրել քառանիշ թիվը",
+  "resend": "Կրկին ուղարկել",
+  "confirm": "Հաստատել"
 }
